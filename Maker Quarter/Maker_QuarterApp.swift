@@ -7,7 +7,7 @@ struct Maker_QuarterApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView()
+            LaunchRouterView()
                 .environment(viewModel)
                 .environment(\.hapticsEnabled, viewModel.state.settings.hapticsOn)
                 .onChange(of: scenePhase) { _, phase in

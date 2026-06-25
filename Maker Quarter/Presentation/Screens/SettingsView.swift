@@ -4,6 +4,7 @@ struct SettingsView: View {
     let onClose: () -> Void
     @Environment(GameViewModel.self) private var vm
     @State private var confirmingReset = false
+    @State private var showPrivacy = false
 
     var body: some View {
         SheetScreen(title: "Settings", symbol: "gearshape.fill", accent: Palette.inkSoft, onClose: onClose) {
@@ -19,6 +20,9 @@ struct SettingsView: View {
             Button("Cancel", role: .cancel) {}
         } message: {
             Text("This permanently deletes your quarter and starts over. Achievements, gallery and prestige are cleared too.")
+        }
+        .sheet(isPresented: $showPrivacy) {
+            PrivacyPolicyView()
         }
     }
 
@@ -136,6 +140,15 @@ struct SettingsView: View {
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
+            }
+
+            GameButton(kind: .secondary) {
+                showPrivacy = true
+            } label: {
+                HStack(spacing: Spacing.s) {
+                    Image(systemName: "hand.raised.fill")
+                    Text("Privacy Policy")
+                }
             }
         }
     }
